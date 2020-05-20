@@ -14,7 +14,7 @@ import java.util.*;
 public class SpringBootRepositaryService {
 
   @Value("${repositaries.base.url}")
-  private String quotesBaseUrl;
+  private String repositaryBaseUrl;
 
   private RestTemplate restTemplate;
 
@@ -33,7 +33,7 @@ public class SpringBootRepositaryService {
     String  abc =  zonedDateTime.format(DateTimeFormatter.ISO_LOCAL_DATE);
 
     ResponseEntity<GitHubRepositoriesResponse> forEntity =
-              restTemplate.getForEntity(String.format("https://api.github.com/search/repositories?q=created:>"+abc+"", query), GitHubRepositoriesResponse.class);
+              restTemplate.getForEntity(String.format(repositaryBaseUrl+"?q=created:>"+abc+"", query), GitHubRepositoriesResponse.class);
       List<Repository> lr= sortByStar(forEntity.getBody().getItems());
 
     List<ViewRepository> lvr = new ArrayList<>();
